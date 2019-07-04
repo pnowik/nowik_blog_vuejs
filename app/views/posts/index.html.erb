@@ -1,0 +1,16 @@
+<h1>This is a list of posts</h1>
+<% if current_user.try(:admin?) %>
+  <%= link_to "New Post", new_post_path %>
+<% end %>
+
+<ul>
+  <% @posts.each do |p| %>
+    <li>
+      <h3><%= link_to p.title, post_path(p.id) %></h3>
+      <p><small><strong>By: </strong><%= p.user.name %></small></p>
+      <p><%= p.body %></p>
+    </li>
+  <% end %>
+</ul>
+
+

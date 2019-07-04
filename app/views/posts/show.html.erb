@@ -1,0 +1,4 @@
+<h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_post_path(@post))) if @post.user == current_user %></h1>
+<p><small><strong>By: </strong><%= @post.user.name %></small></p>
+<p><%= @post.body %></p>
+
