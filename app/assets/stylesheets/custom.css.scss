@@ -4,6 +4,8 @@
 .alert-notice { @extend .alert-info; }
 .alert-alert { @extend .alert-danger; }
 
+$gray-medium-light: #eaeaea;
+
 .round-image-50 {
    background-color: white;
    border: 1px solid #d9d9d9;
@@ -16,3 +18,9 @@
    text-align: center;
    img { width: 100% }
  }
+
+.navbar-footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $gray-medium-light;
+}
