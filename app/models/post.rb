@@ -4,5 +4,6 @@ class Post < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   has_many :comments, dependent: :destroy
   validates :title, presence: true, length: {minimum: 5, maximum: 140}
-  validates :body, presence: true, length: {minimum: 30, maximum: 5000}
+  validates :subtitle, presence: true, length: {minimum: 50, maximum: 300}
+  validates :body, presence: true, length: {minimum: 100, maximum: 5000}
 end

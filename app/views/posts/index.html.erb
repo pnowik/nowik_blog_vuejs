@@ -7,10 +7,12 @@
   <% @posts.each do |p| %>
     <li>
       <h3><%= link_to p.title, post_path(p.id) %></h3>
-      <p><small><strong>By: </strong><%= p.user.name %></small></p>
-      <p><%= p.body %></p>
+      <p><small><strong>Added by: </strong><%= p.user.name %><strong>  at: </strong><%= p.created_at %></small></p>
+      <p><%= p.subtitle %></p>
     </li>
   <% end %>
 </ul>
+
+<%= will_paginate %>
 
 

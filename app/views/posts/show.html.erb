@@ -1,6 +1,13 @@
 <h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_post_path(@post))) if @post.user == current_user %></h1>
-<p><small><strong>By: </strong><%= @post.user.name %></small></p>
+<p><small><strong>Added by: </strong><%= @post.user.name %><strong>  at: </strong><%= @post.created_at %></small></p>
+<h4><strong><%= @post.subtitle %></strong></h4>
 <p><%= @post.body %></p>
 <h3>Comments (<%= @post.comments.size %>)</h3>
-<%= render partial: 'comments/form' %>
+<% if current_user %>
+  <%= render partial: 'comments/form' %>
+<% else %>
+  <p>If you want to comment <%= link_to 'Sign in', new_user_session_path %>
+    and if you don't have account <%= link_to 'Sign up', new_user_registration_path %> </p>
+  <br>
+<% end %>
 <%= render partial: 'posts/comment', collection: @post.comments.reverse %>
