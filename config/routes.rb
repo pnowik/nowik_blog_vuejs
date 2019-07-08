@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  root 'posts#index'
+
+  namespace :admin do
+    root to: 'admin/posts#index'
+    resources :posts
+  end
+  root to: 'posts#index'
 
   devise_for :users
 
@@ -10,4 +15,5 @@ Rails.application.routes.draw do
       end
     end
   end
+
 end
