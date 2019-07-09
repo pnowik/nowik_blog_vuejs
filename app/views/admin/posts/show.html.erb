@@ -1,0 +1,9 @@
+<h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_admin_post_path(@post))) %></h1>
+<p><small><strong>Added by: </strong><%= @post.user.name %><strong>  at: </strong><%= @post.created_at %></small></p>
+<h4><strong><%= @post.subtitle %></strong></h4>
+<p><%= @post.body %></p>
+<h3>Comments (<%= @post.comments.size %>)</h3>
+<% if current_user %>
+  <%= render partial: 'comments/form' %>
+<% end %>
+<%= render partial: 'posts/comment', collection: @post.comments.reverse %>

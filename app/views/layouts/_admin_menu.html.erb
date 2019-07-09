@@ -9,17 +9,16 @@
       </button>
       <ul class="nav navbar-nav navbar-left">
         <li><%= link_to "Nowik Blog", root_path, class: 'navbar-brand' %></li>
-        <% if current_user.try(:admin?) %>
-          <li><%= link_to "Admin Panel", admin_posts_path, class: 'navbar-brand' %></li>
-        <% end %>
+        <li><%= link_to "Admin Panel", admin_posts_path, class: 'navbar-brand' %></li>
       </ul>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to 'Posts', posts_path %></li>
+        <li><%= link_to 'Manage Posts', admin_posts_path %></li>
+        <li><%= link_to 'Manage Comments', admin_posts_path %></li>
+        <li><%= link_to 'Manage Users', admin_users_path %></li>
         <% if current_user %>
-          <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
           <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
 
           <% if current_user.avatar.attached? %>
@@ -29,7 +28,6 @@
           <% end %>
 
         <% else %>
-          <li><%= link_to 'Register', new_user_registration_path %></li>
           <li><%= link_to 'Login', new_user_session_path %></li>
         <% end %>
       </ul>

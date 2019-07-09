@@ -4,6 +4,16 @@ User.create!(name:  "nowik",
              password_confirmation: "qwerty",
              admin: true)
 
+User.create!(name:  "qaz",
+             email: "qaz@gmail.com",
+             password:              "qwerty",
+             password_confirmation: "qwerty")
+
+User.create!(name:  "qwe",
+             email: "qwe@gmail.com",
+             password:              "qwerty",
+             password_confirmation: "qwerty")
+
 users = User.order(:created_at).take(1)
 50.times do
   title = Faker::Lorem.sentence(5)
