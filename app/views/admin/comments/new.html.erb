@@ -1,6 +1,6 @@
 <h3>Post a comment</h3>
 
-<%= form_for [ @user, @post, @comment ] do |f| %>
+<%= form_for([ @user, @post, @comment ], url: admin_post_comments_path(@post.id)) do |f| %>
   <p>
     <%= f.text_area :body %>
   </p>

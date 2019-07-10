@@ -1,5 +1,5 @@
 <h1>Edit post</h1>
 <p><%= link_to 'back', admin_post_path(@post) %></p>
-<%= render 'form', post: @post %>
+<%= render partial: '/admin/posts/form' %>
 <br />
 <p><%= link_to 'delete post', admin_post_path(@post), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} %></p>

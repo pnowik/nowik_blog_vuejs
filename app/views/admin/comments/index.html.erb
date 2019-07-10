@@ -1,4 +1,4 @@
-<h1>Manage Post Comments </h1>
+<h1>Manage Post Comments <%= link_to 'new', new_admin_post_comment_path(params[:post_id]) %> </h1>
 <table style="width:100%">
   <tr>
     <th>post_id</th>
@@ -8,7 +8,7 @@
     <th>show_comment</th>
     <th>delete_comment</th>
   </tr>
-  <% @comment.each do |c| %>
+  <% @comments.each do |c| %>
     <tr>
       <td><%= c.post_id %></td>
       <td><%= c.id %></td>
@@ -17,11 +17,13 @@
         <% if c.published %>
           published
         <% else %>
-          <%= link_to 'publish', publish_admin_post_comment_path(@post, c.id), method: :put, data: {confirm: "Are you sure you want to publish this?"} %>
+          <%= link_to 'publish', publish_admin_post_comment_path(params[:post_id], c.id), method: :put, data: {confirm: "Are you sure you want to publish this?"} %>
         <% end %>
       </td>
-      <td><%= link_to 'show', admin_post_comment_path(@post, c.id) %></td>
-      <td><%= link_to 'delete', admin_post_comment_path(@post, c.id), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} %></td>
+      <td><%= link_to 'show', admin_post_comment_path(params[:post_id], c.id) %></td>
+      <td><%= link_to 'delete', admin_post_comment_path(params[:post_id], c.id), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} %></td>
     </tr>
-  <% end %>
+    <% end %>
 </table>
+
+<%= will_paginate %>

@@ -4,6 +4,6 @@
 <p><%= @post.body %></p>
 <h3>Comments (<%= @post.comments.size %>)</h3>
 <% if current_user %>
-  <%= render partial: 'comments/form' %>
+  <%= render partial: '/admin/comments/form' %>
 <% end %>
-<%= render partial: 'posts/comment', collection: @post.comments.reverse %>
+<%= render partial: '/admin/posts/comment', collection: @post.comments.reverse %>

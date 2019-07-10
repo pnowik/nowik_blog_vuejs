@@ -20,21 +20,20 @@ class Admin::PostsController < Admin::BaseController
 
     if @post.save
       flash[:success] = "Created new post"
-      redirect_to @post
+      redirect_to admin_post_path(@post.id)
     else
       render 'new'
     end
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     if @post.update_attributes(allowed_params)
       flash[:success] = "Updated post"
-      redirect_to @post
+      redirect_to admin_post_path(@post.id)
     else
       render 'edit'
     end
@@ -44,6 +43,10 @@ class Admin::PostsController < Admin::BaseController
     @post.destroy
     redirect_to admin_posts_path
     flash[:success] = "deleted post"
+  end
+
+  def show_comments
+
   end
 
   private

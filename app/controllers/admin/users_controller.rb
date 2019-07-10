@@ -6,7 +6,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def new
-    @user = User.new
   end
 
   def show

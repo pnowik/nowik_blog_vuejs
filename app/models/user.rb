@@ -8,4 +8,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   validates_uniqueness_of :name, :email
   validates_confirmation_of :password
+  validates :name, presence: true, length: {maximum: 30}
 end

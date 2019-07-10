@@ -1,4 +1,4 @@
-<%= form_for post do |f| %>
+<%= form_for(@post, url: admin_post_path(@post.id)) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="form-group">
     <%= f.label :title, class: 'control-label' %>
@@ -15,5 +15,5 @@
     <%= f.text_area :body, class: 'form-control', rows: 6 %>
   </div>
 
-  <%= f.submit 'Save', class: 'btn btn-primary' %>
+  <%= f.submit 'Save', url: admin_posts_path, class: 'btn btn-primary' %>
 <% end %>
