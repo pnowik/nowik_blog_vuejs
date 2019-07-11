@@ -1,9 +1,10 @@
-class PostPolicy < ApplicationPolicy
-  attr_reader :user, :post
+class Admin::CommentPolicy < ApplicationPolicy
+  attr_reader :user, :post, :comment
 
-  def initialize(user, post)
+  def initialize(user, post, comment)
     @user = user
     @post = post
+    @comment = comment
   end
 
   def new?
@@ -19,6 +20,14 @@ class PostPolicy < ApplicationPolicy
   end
 
   def destroy?
+    user.role == 'admin' || user.role == 'mod'
+  end
+
+  def publish?
+    user.role == 'admin' || user.role == 'mod'
+  end
+
+  def unpublish?
     user.role == 'admin' || user.role == 'mod'
   end
 end

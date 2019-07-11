@@ -1,4 +1,4 @@
-<h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_post_path(@post))) if @post.user == current_user %></h1>
+<h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_post_path(@post))) if current_user.try(:admin?) || current_user.try(:mod?) %></h1>
 <p><small><strong>Added by: </strong><%= @post.user.name %><strong>  at: </strong><%= @post.created_at %></small></p>
 <h4><strong><%= @post.subtitle %></strong></h4>
 <p><%= @post.body %></p>

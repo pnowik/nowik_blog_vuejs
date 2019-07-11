@@ -1,8 +1,10 @@
 class Admin::PostsController < Admin::BaseController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :user_admin
 
   def index
-    @posts = Post.paginate(page: params[:page], per_page: 20)
+    @posts = Post.search(params[:term]).paginate(page: params[:page], per_page: 20)
   end
 
   def show
@@ -12,6 +14,7 @@ class Admin::PostsController < Admin::BaseController
 
   def new
     @post = Post.new
+    authorize @post
   end
 
   def create
@@ -27,10 +30,11 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def edit
+    authorize @post
   end
 
   def update
-    @user = current_user
+    authorize @post
     if @post.update_attributes(allowed_params)
       flash[:success] = "Updated post"
       redirect_to admin_post_path(@post.id)
@@ -40,21 +44,22 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def destroy
+    authorize @post
     @post.destroy
     redirect_to admin_posts_path
     flash[:success] = "deleted post"
   end
 
-  def show_comments
-
-  end
-
   private
   def allowed_params
-    params.require(:post).permit(:title, :subtitle, :body)
+    params.require(:post).permit(:title, :subtitle, :body, :term)
   end
 
   def find_post
     @post = Post.find(params[:id])
+  end
+
+  def user_admin
+    redirect_to posts_path unless current_user.try(:admin?) || current_user.try(:mod?)
   end
 end

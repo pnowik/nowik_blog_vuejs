@@ -1,11 +1,14 @@
 class Admin::CommentsController < Admin::BaseController
   before_action :find_comment, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :user_admin
+
 
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
     @comment.user_id = current_user.id
-    if current_user.admin?
+    if current_user.try(:admin?) || current_user.try(:mod?)
       @comment.published = true
     end
     if @comment.save
@@ -33,10 +36,10 @@ class Admin::CommentsController < Admin::BaseController
     flash[:success] = "deleted post"
   end
 
-  def update
+  def edit
   end
 
-  def edit
+  def update
   end
 
   def publish
@@ -63,6 +66,10 @@ class Admin::CommentsController < Admin::BaseController
 
   def find_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def user_admin
+    redirect_to posts_path unless current_user.try(:admin?) || current_user.try(:mod?)
   end
 
 end

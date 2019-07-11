@@ -1,11 +1,13 @@
 <h3>Post a comment</h3>
 
-<%= form_for [ @user, @post, @comment ] do |f| %>
+<%= form_for([ @post, @comment ], url: posts_path(params[:post_id])) do |f| %>
   <p>
-    <%= f.text_area :body %>
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control', rows: 2 %>
+  </div>
   </p>
   <p>
-    <%= f.submit 'Submit' %>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
   </p>
   <br>
 <% end %>

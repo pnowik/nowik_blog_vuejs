@@ -1,5 +1,14 @@
 class Post < ApplicationRecord
 
+  def self.search(term)
+    if term
+      where('title LIKE ?', "%#{term}%")
+    else
+      all
+    end
+  end
+
+
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
   has_many :comments, dependent: :destroy

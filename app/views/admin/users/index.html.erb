@@ -1,4 +1,11 @@
 <h1>Manage Users</h1>
+
+<%= form_tag(admin_users_path, method: :get) do %>
+  <%= text_field_tag :term, params[:term] %>
+  <%= submit_tag 'Search name', name: nil %>
+<% end %>
+
+
 <table style="width:100%">
   <tr>
     <th>user_id</th>
@@ -14,10 +21,18 @@
       <td><%= u.id %></td>
       <td><%= u.name %></td>
       <td><%= u.email %></td>
-      <td><%= u.admin %></td>
+      <td><%= u.role %></td>
       <td><%= link_to 'show', admin_user_path(u.id) %></td>
-      <td><%= link_to 'edit', edit_admin_user_path(u.id) %></td>
-      <td><%= link_to 'delete', admin_user_path(u.id), method: :delete, data: {confirm: "Are you sure you want to delete user permanently?"} %></td>
+      <% if u.role.to_s != "admin" %>
+        <td><%= link_to 'edit', edit_admin_user_path(u.id) %></td>
+        <td><%= link_to 'delete', admin_user_path(u.id), method: :delete, data: {confirm: "Are you sure you want to delete user permanently?"} %></td>
+      <% elsif current_user.try(:admin?) %>
+        <td><%= link_to 'edit', edit_admin_user_path(u.id) %></td>
+        <td><%= link_to 'delete', admin_user_path(u.id), method: :delete, data: {confirm: "Are you sure you want to delete user permanently?"} %></td>
+      <% else %>
+        <td>you can't do this</td>
+        <td>you can't do this</td>
+      <% end %>
     </tr>
   <% end %>
 </table>

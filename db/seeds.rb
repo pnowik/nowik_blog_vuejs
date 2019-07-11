@@ -2,12 +2,13 @@ User.create!(name:  "nowik",
              email: "pnowik97@gmail.com",
              password:              "qwerty",
              password_confirmation: "qwerty",
-             admin: true)
+             role: "admin")
 
 User.create!(name:  "qaz",
              email: "qaz@gmail.com",
              password:              "qwerty",
-             password_confirmation: "qwerty")
+             password_confirmation: "qwerty",
+             role: "mod")
 
 User.create!(name:  "qwe",
              email: "qwe@gmail.com",

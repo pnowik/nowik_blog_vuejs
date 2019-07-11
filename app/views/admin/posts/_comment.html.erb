@@ -1,15 +1,22 @@
 <div>
-  <% if current_user.try(:admin?) %>
+  <% if(current_user.try(:admin?) || current_user.try(:mod?)) %>
     <p><small><strong> <%= comment.user.name %> </strong>
       <% if comment.user.try(:admin?) %>
         <span style="color: darkred;">(admin)</span>
+      <% elsif comment.user.try(:mod?) %>
+        <span style="color: darkblue;">(mod)</span>
       <% end %>
       <%= comment.created_at %> </small>
     </p>
     <p class="comment"><%= comment.body %></p>
-    <% if current_user.try(:admin?) && !comment.published %>
+    <% if((current_user.try(:admin?) || current_user.try(:mod?)) && !comment.published && comment.user.try(:standard?)) %>
       <%= form_tag publish_admin_post_comment_path(@post, comment), method: :put do -%>
         <%= submit_tag 'Publish' -%>
+      <%- end -%>
+      <br>
+    <% elsif((current_user.try(:admin?) || current_user.try(:mod?)) && comment.published && comment.user.try(:standard?)) %>
+      <%= form_tag unpublish_admin_post_comment_path(@post, comment), method: :put do -%>
+        <%= submit_tag 'Unpublish' -%>
       <%- end -%>
       <br>
     <% end %>
@@ -18,6 +25,8 @@
       <p><small><strong> <%= comment.user.name %> </strong>
         <% if comment.user.try(:admin?) %>
           <span style="color: darkred;">(admin)</span>
+        <% elsif comment.user.try(:mod?) %>
+          <span style="color: darkblue;">(mod)</span>
         <% end %>
         <%= comment.created_at %> </small>
       </p>

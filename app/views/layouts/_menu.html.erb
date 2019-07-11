@@ -9,7 +9,7 @@
       </button>
       <ul class="nav navbar-nav navbar-left">
         <li><%= link_to "Nowik Blog", root_path, class: 'navbar-brand' %></li>
-        <% if current_user.try(:admin?) %>
+        <% if current_user.try(:admin?) || current_user.try(:mod?) %>
           <li><%= link_to "Admin Panel", admin_posts_path, class: 'navbar-brand' %></li>
         <% end %>
       </ul>

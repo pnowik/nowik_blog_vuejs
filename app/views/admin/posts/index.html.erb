@@ -1,4 +1,11 @@
 <h1>Manage Posts <%= content_tag(:small, link_to('new', new_admin_post_path(@post))) %></h1>
+
+<%= form_tag(admin_posts_path, method: :get) do %>
+  <%= text_field_tag :term, params[:term] %>
+  <%= submit_tag 'Search title', name: nil %>
+<% end %>
+
+
 <table style="width:100%">
   <tr>
     <th>post_id</th>

@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    # authorize @post
+    authorize @post
   end
 
   def create
@@ -29,32 +29,24 @@ class PostsController < ApplicationController
   end
 
   def edit
-    redirect_to posts_path unless @post.user == current_user
+    authorize @post
   end
 
   def update
-    if @post.user == current_user
-      if @post.update_attributes(allowed_params)
-        flash[:success] = "Updated post"
-        redirect_to @post
-      else
-        render 'edit'
-      end
+    authorize @post
+    if @post.update_attributes(allowed_params)
+      flash[:success] = "Updated post"
+      redirect_to @post
     else
-      redirect_to posts_path
-      flash[:notice] = "You can't do this"
+      render 'edit'
     end
   end
 
   def destroy
-    if @post.user == current_user
-      @post.destroy
-      redirect_to posts_path
-      flash[:success] = "deleted post"
-    else
-      redirect_to root_path
-      flash[:danger] = "You can't do this"
-    end
+    authorize @post
+    @post.destroy
+    redirect_to posts_path
+    flash[:success] = "deleted post"
   end
 
   private
