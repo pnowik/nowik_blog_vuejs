@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :comments do
         member do
           put :publish
+          put :unpublish
         end
       end
     end

@@ -1,4 +1,4 @@
-<h1>Manage Post Comments <%= link_to 'new', new_admin_post_comment_path(params[:post_id]) %> </h1>
+<h1>Manage Post Comments <%= content_tag(:small, link_to('new', new_admin_post_comment_path(params[:post_id]))) %></h1>
 <table style="width:100%">
   <tr>
     <th>post_id</th>
@@ -10,12 +10,12 @@
   </tr>
   <% @comments.each do |c| %>
     <tr>
-      <td><%= c.post_id %></td>
+      <td><%= link_to "#{c.post_id}", admin_post_path(params[:post_id]) %></td>
       <td><%= c.id %></td>
       <td><%= c.body %></td>
       <td>
         <% if c.published %>
-          published
+          <%= link_to 'unpublish', unpublish_admin_post_comment_path(params[:post_id], c.id), method: :put, data: {confirm: "Are you sure you want to unpublish this?"} %>
         <% else %>
           <%= link_to 'publish', publish_admin_post_comment_path(params[:post_id], c.id), method: :put, data: {confirm: "Are you sure you want to publish this?"} %>
         <% end %>

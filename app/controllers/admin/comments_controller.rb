@@ -9,7 +9,7 @@ class Admin::CommentsController < Admin::BaseController
       @comment.published = true
     end
     if @comment.save
-      redirect_back(fallback_location: root_path)
+      redirect_to(admin_post_comments_path)
     else
       flash.now[:danger] = "error"
     end
@@ -21,6 +21,10 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def show
+  end
+
+  def new
+    @comment = Comment.new
   end
 
   def destroy
@@ -39,6 +43,14 @@ class Admin::CommentsController < Admin::BaseController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
     @comment.published = true
+    @comment.save
+    redirect_back(fallback_location: root_path)
+  end
+
+  def unpublish
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+    @comment.published = false
     @comment.save
     redirect_back(fallback_location: root_path)
   end
