@@ -6,7 +6,6 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',  '~> 5.2.3'
 gem 'bcrypt', '~>3.1.12'
-gem 'faker',  '>=1.7.3'
 gem 'will_paginate',           '~>3.1.7'
 gem 'bootstrap-will_paginate', '>=1.0.0'
 gem 'gravatar_image_tag'
@@ -19,8 +18,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 
 gem 'devise'
-
-gem 'rspec-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -53,6 +50,8 @@ group :development, :test do
   gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'capybara', '>= 2.15'
 end
 
 group :development do
@@ -65,12 +64,11 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'rails-controller-testing'
+  gem 'faker',  '>=1.7.3'
 end
 
 group :production do
