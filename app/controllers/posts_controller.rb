@@ -13,7 +13,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    authorize @post
   end
 
   def create
@@ -51,7 +50,7 @@ class PostsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :subtitle, :body)
   end
 
   def find_post

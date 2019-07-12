@@ -10,15 +10,31 @@
     </p>
     <p class="comment"><%= comment.body %></p>
     <% if((current_user.try(:admin?) || current_user.try(:mod?)) && !comment.published && comment.user.try(:standard?)) %>
+      <div class="form-group2">
       <%= form_tag publish_admin_post_comment_path(@post, comment), method: :put do -%>
         <%= submit_tag 'Publish' -%>
       <%- end -%>
-      <br>
+      </div>
     <% elsif((current_user.try(:admin?) || current_user.try(:mod?)) && comment.published && comment.user.try(:standard?)) %>
+      <div class="form-group2">
       <%= form_tag unpublish_admin_post_comment_path(@post, comment), method: :put do -%>
         <%= submit_tag 'Unpublish' -%>
       <%- end -%>
-      <br>
+      </div>
+    <% end %>
+    <% if current_user.try(:admin?) || current_user.try(:mod?) %>
+      <div class="form-group2">
+      <%= form_tag edit_admin_post_comment_path(@post, comment), method: :get do -%>
+        <%= submit_tag 'Edit' -%>
+      <%- end -%>
+      </div>
+    <% end %>
+    <% if current_user.try(:admin?) || current_user.try(:mod?) %>
+      <div class="form-group2">
+      <%= form_tag admin_post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
+        <%= submit_tag 'Delete' -%>
+      <%- end -%>
+      </div>
     <% end %>
   <% else %>
     <% if comment.published %>

@@ -1,6 +1,6 @@
 <h3>Post a comment</h3>
 
-<%= form_for([ @post, @comment ], url: posts_path(params[:post_id])) do |f| %>
+<%= form_for([ @post, @comment ]) do |f| %>
   <p>
   <div class="form-group">
     <%= f.text_area :body, class: 'form-control', rows: 2 %>
