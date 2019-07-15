@@ -33,7 +33,7 @@ class Admin::CommentsController < Admin::BaseController
   def destroy
     @comment.destroy
     redirect_back(fallback_location: root_path)
-    flash[:success] = "deleted post"
+    flash[:success] = "deleted comment"
   end
 
   def edit

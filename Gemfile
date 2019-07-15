@@ -10,6 +10,7 @@ gem 'will_paginate',           '~>3.1.7'
 gem 'bootstrap-will_paginate', '>=1.0.0'
 gem 'gravatar_image_tag'
 gem 'pundit'
+gem 'faker',  '>=1.7.3'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -69,7 +70,6 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'rails-controller-testing'
-  gem 'faker',  '>=1.7.3'
 end
 
 group :production do

@@ -1,11 +1,9 @@
 class CommentPolicy < ApplicationPolicy
-  class CommentScope < Scope
-    def resolve
-      if user.admin?
-        scope.all
-      else
-        scope.where(published: true)
-      end
-    end
+  attr_reader :user, :post, :comment
+
+  def initialize(user, post, comment)
+    @user = user
+    @post = post
+    @comment = comment
   end
 end

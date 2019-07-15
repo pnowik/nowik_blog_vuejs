@@ -31,22 +31,27 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
   end
 
   def update
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
     if @comment.update_attributes(comment_params)
-      flash[:success] = "Updated post"
       redirect_to @post
+      flash[:success] = "Updated post"
     else
       render 'edit'
     end
   end
 
   def destroy
-    authorize @post
-    @post.destroy
-    redirect_to posts_path
-    flash[:success] = "deleted post"
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    redirect_back(fallback_location: root_path)
+    flash[:success] = "deleted comment"
   end
 
   def comment_params

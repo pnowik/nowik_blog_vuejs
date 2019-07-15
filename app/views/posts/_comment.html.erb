@@ -24,14 +24,14 @@
     <% end %>
     <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
       <div class="form-group2">
-        <%= form_tag edit_admin_post_comment_path(@post, comment), method: :get do -%>
+        <%= form_tag edit_post_comment_path(@post, comment), method: :get do -%>
           <%= submit_tag 'Edit' -%>
         <%- end -%>
       </div>
     <% end %>
     <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
       <div class="form-group2">
-        <%= form_tag admin_post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
+        <%= form_tag post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
           <%= submit_tag 'Delete' -%>
         <%- end -%>
       </div>
@@ -49,14 +49,14 @@
       <p class="comment"><%= comment.body %></p>
       <% if comment.user_id.to_s == current_user.id.to_s %>
         <div class="form-group2">
-          <%= form_tag edit_admin_post_comment_path(@post, comment), method: :get do -%>
+          <%= form_tag edit_post_comment_path(@post, comment), method: :get do -%>
             <%= submit_tag 'Edit' -%>
           <%- end -%>
         </div>
       <% end %>
       <% if comment.user_id.to_s == current_user.id.to_s %>
         <div class="form-group2">
-          <%= form_tag admin_post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
+          <%= form_tag post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
             <%= submit_tag 'Delete' -%>
           <%- end -%>
         </div>
