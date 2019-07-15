@@ -92,6 +92,11 @@ GEM
     equatable (0.6.1)
     erubi (1.8.0)
     execjs (2.7.0)
+    factory_girl (4.9.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.9.0)
+      factory_girl (~> 4.9.0)
+      railties (>= 3.0.0)
     faker (1.9.4)
       i18n (>= 0.7)
       pastel (~> 0.7.2)
@@ -280,6 +285,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  factory_girl_rails
   faker (>= 1.7.3)
   gravatar_image_tag
   jbuilder (~> 2.5)
