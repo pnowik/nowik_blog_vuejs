@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Comment Management", type: :feature do
 
-  describe "POST comment#create" do
+  describe "POST comments#create" do
     it "should create new comment" do
       user = FactoryGirl.create(:user, :standard)
       login_as user
@@ -24,7 +24,7 @@ RSpec.describe "Comment Management", type: :feature do
     end
   end
 
-  describe "GET comment#edit" do
+  describe "GET comments#edit" do
     it "should edit admin comments" do
       user = FactoryGirl.create(:user, :admin)
       login_as user

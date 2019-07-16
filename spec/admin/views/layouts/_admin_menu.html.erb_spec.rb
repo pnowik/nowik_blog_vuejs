@@ -41,38 +41,4 @@ RSpec.describe 'layouts/_menu', type: :view do
       expect(rendered).to have_link(nil, href: "/", :text => 'Nowik Blog')
     end
   end
-
-  context 'user logged in' do
-    let(:user) {FactoryGirl.create(:user,:standard)}
-
-    before do
-      allow(view).to receive(:current_user).and_return(user)
-    end
-
-    it 'should not display link to admin panel' do
-      render
-
-      expect(rendered).to_not have_link(nil, href: "/admin/posts", :text => 'Admin Panel')
-    end
-
-    it 'should display link to blog panel' do
-      render
-
-      expect(rendered).to have_link(nil, href: "/", :text => 'Nowik Blog')
-    end
-  end
-
-  context 'user not logged in' do
-    it 'should not display link to admin panel' do
-      render
-
-      expect(rendered).to_not have_link(nil, href: "/admin/posts", :text => 'Admin Panel')
-    end
-
-    it 'should display link to blog panel' do
-      render
-
-      expect(rendered).to have_link(nil, href: "/", :text => 'Nowik Blog')
-    end
-  end
 end

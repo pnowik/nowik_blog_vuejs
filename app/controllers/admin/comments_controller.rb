@@ -40,6 +40,13 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def update
+    @post = Post.find(params[:post_id])
+    if @comment.update_attributes(comment_params)
+      redirect_to @post
+      flash[:success] = "Updated comment"
+    else
+      render 'edit'
+    end
   end
 
   def publish
