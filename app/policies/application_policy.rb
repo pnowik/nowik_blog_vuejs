@@ -46,7 +46,7 @@ class ApplicationPolicy
     end
 
     def resolve
-      if user.admin?
+      if user.role == 'admin'
         scope.all
       else
         scope.where(published: true)

@@ -36,7 +36,7 @@
         <%- end -%>
       </div>
     <% end %>
-  <% else %>
+  <% elsif current_user %>
     <% if comment.published || comment.user_id.to_s == current_user.id.to_s %>
       <p><small><strong> <%= comment.user.name %> </strong>
         <% if comment.user.try(:admin?) %>
@@ -62,5 +62,15 @@
         </div>
       <% end %>
     <% end %>
+  <% else %>
+    <p><small><strong> <%= comment.user.name %> </strong>
+      <% if comment.user.try(:admin?) %>
+        <span style="color: darkred;">(admin)</span>
+      <% elsif comment.user.try(:mod?) %>
+        <span style="color: darkblue;">(mod)</span>
+      <% end %>
+      <%= comment.created_at %> </small>
+    </p>
+    <p class="comment"><%= comment.body %></p>
   <% end %>
 </div>

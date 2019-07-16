@@ -8,7 +8,6 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'devise'
 
-include Warden::Test::Helpers
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -43,6 +42,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include FeatureSpecHelper, :type => :feature
+  config.include Warden::Test::Helpers
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -66,6 +66,7 @@ RSpec.configure do |config|
   #
 
   config.include Devise::Test::ControllerHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :view
   config.extend ControllerMacros, :type => :controller
 
   Capybara.register_driver :chrome do |app|

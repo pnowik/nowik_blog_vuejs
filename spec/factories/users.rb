@@ -1,8 +1,8 @@
 FactoryGirl.define do
 
   factory :user do
-    email 'test@example.com'
-    name 'testuser'
+    sequence(:email) { |n| "test#{n}@example.com" }
+    sequence(:name) { |n|  "testuser#{n}" }
     password 'password'
     password_confirmation 'password'
     trait :standard do
@@ -25,7 +25,7 @@ FactoryGirl.define do
   end
 
   factory :comment do
-    comment 'a' * 30
+    body 'a' * 30
     post_id 1
     user_id 1
   end
