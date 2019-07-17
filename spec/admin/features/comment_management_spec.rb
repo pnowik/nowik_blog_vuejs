@@ -113,4 +113,76 @@ RSpec.describe "Admin Comment Management", type: :feature do
       expect(comment.reload.body).to eq "mod"
     end
   end
+
+  describe "DELETE admin/comments#destroy" do
+    it "should delete admin comments" do
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "admin should delete mod comments" do
+      mod = FactoryGirl.create(:user, :mod)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "admin should delete user comments" do
+      standard = FactoryGirl.create(:user, :standard)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "should delete mod comments" do
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "mod should delete admin comments" do
+      admin = FactoryGirl.create(:user, :admin)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "mod should delete user comments" do
+      standard = FactoryGirl.create(:user, :standard)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+
+      visit admin_post_comments_path(post.id)
+
+      expect { click_link "delete"}.to change(Comment, :count).by(-1)
+    end
+  end
 end

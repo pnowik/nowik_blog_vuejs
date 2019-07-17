@@ -14,6 +14,9 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
+    if @user.role == 'admin' && current_user.try(:mod?)
+      redirect_to admin_users_path
+    end
   end
 
   def update

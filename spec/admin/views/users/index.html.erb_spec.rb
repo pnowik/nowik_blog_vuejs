@@ -52,5 +52,14 @@ RSpec.describe 'admin/users/index.html.erb', type: :view do
 
       expect(rendered).to have_link(nil, href: "/admin/users/#{@user.id}/edit", :text => 'edit')
     end
+
+    it 'should not display link to edit admin user' do
+      @user = User.new(name: "testuser", email: "test@example.com", password: "password", role: "admin")
+      @user.save
+      @users = User.paginate(page: params[:page], per_page: 20)
+      render
+
+      expect(rendered).to_not have_link(nil, href: "/admin/users/#{@user.id}/edit", :text => 'edit')
+    end
   end
 end

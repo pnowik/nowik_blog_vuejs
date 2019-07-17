@@ -1,15 +1,20 @@
-<h1>This is a list of posts</h1>
-<% if current_user.try(:admin?) || current_user.try(:mod?) %>
-  <%= link_to "New Post", new_post_path %>
-<% end %>
+<h1>This is a list of posts
+  <% if current_user.try(:admin?) || current_user.try(:mod?) %>
+    <%= content_tag(:small, link_to("New Post", new_post_path)) %>
+  <% end %>
+</h1>
 
-<ul>
+<ul class="no-bullets">
   <% @posts.each do |p| %>
-    <li>
-      <h3><%= link_to p.title, post_path(p.id) %></h3>
-      <p><small><strong>Added by: </strong><%= p.user.name %><strong>  at: </strong><%= p.created_at %></small></p>
-      <p><%= p.subtitle %></p>
-    </li>
+    <div class="post">
+      <li>
+        <div class="post-title">
+          <h3><%= link_to p.title, post_path(p.id) %></h3>
+        </div>
+        <p><small><strong>Added by: </strong><%= p.user.name %><strong>  at: </strong><%= p.created_at %></small></p>
+        <p><%= p.subtitle %></p>
+      </li>
+    </div>
   <% end %>
 </ul>
 

@@ -32,6 +32,33 @@ RSpec.describe "Admin User Management", type: :feature do
       expect(user.reload.name).to eq "b" * 7
       expect(user.email).to eq "test@test.com"
     end
+
+    it "mod should not edit admin" do
+      admin = FactoryGirl.create(:user, :admin)
+      mod = FactoryGirl.create(:user, :mod)
+      login_as mod
+      visit "admin/users/#{admin.id}/edit"
+
+      expect(page).to_not have_selector(:button, "Update")
+    end
+  end
+
+  describe "DELETE admin/users#destroy" do
+    it "should delete admin user" do
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+      visit "/admin/users/"
+
+      expect { click_link "delete"}.to change(User, :count).by(-1)
+    end
+
+    it "should delete mod user" do
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+      visit "/admin/users/"
+
+      expect { click_link "delete"}.to change(User, :count).by(-1)
+    end
   end
 end
 

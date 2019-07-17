@@ -63,4 +63,24 @@ RSpec.describe "Admin Post Management", type: :feature do
       expect(post.body).to eq "b" * 300
     end
   end
+
+  describe "DELETE admin/posts#destroy" do
+    it "should delete admin post" do
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+      FactoryGirl.create(:post)
+      visit "/admin/posts/"
+
+      expect { click_link "delete"}.to change(Post, :count).by(-1)
+    end
+
+    it "should delete mod post" do
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+      FactoryGirl.create(:post)
+      visit "/admin/posts/"
+
+      expect { click_link "delete"}.to change(Post, :count).by(-1)
+    end
+  end
 end

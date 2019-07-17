@@ -24,6 +24,113 @@ RSpec.describe "Comment Management", type: :feature do
     end
   end
 
+  describe "DELETE comments#destroy" do
+    it "should delete admin comments" do
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "admin should delete mod comments" do
+      mod = FactoryGirl.create(:user, :mod)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "admin should delete user comments" do
+      standard = FactoryGirl.create(:user, :standard)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :admin)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "should delete mod comments" do
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "mod should delete admin comments" do
+      admin = FactoryGirl.create(:user, :admin)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "mod should delete user comments" do
+      standard = FactoryGirl.create(:user, :standard)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :mod)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "should delete user comments" do
+      user = FactoryGirl.create(:user, :standard)
+      login_as user
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+
+      visit post_path(post.id)
+
+      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+    end
+
+    it "user should not delete admin comments" do
+      admin = FactoryGirl.create(:user, :admin)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :standard)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect(page).to_not have_selector(:button, "Delete")
+    end
+
+    it "user should not delete mod comments" do
+      mod = FactoryGirl.create(:user, :mod)
+      post = FactoryGirl.create(:post)
+      comment = FactoryGirl.create(:comment)
+      user = FactoryGirl.create(:user, :standard)
+      login_as user
+
+      visit post_path(post.id)
+
+      expect(page).to_not have_selector(:button, "Delete")
+    end
+  end
+
   describe "GET comments#edit" do
     it "should edit admin comments" do
       user = FactoryGirl.create(:user, :admin)
@@ -142,8 +249,6 @@ RSpec.describe "Comment Management", type: :feature do
       expect(comment.reload.body).to eq "b" * 7
     end
 
-
-    # Poprawić bo user może edytować komentarz admina
     it "user should not edit admin comment" do
       admin = FactoryGirl.create(:user, :admin)
       post = FactoryGirl.create(:post)
@@ -156,10 +261,9 @@ RSpec.describe "Comment Management", type: :feature do
 
       click_button "Submit"
 
-      expect(comment.reload.body).to eq "b" * 7
+      expect(comment.reload.body).to_not eq "b" * 7
     end
 
-    # Poprawić bo user może edytować komentarz moda
     it "user should not edit mod comment" do
       mod = FactoryGirl.create(:user, :mod)
       post = FactoryGirl.create(:post)
@@ -172,10 +276,9 @@ RSpec.describe "Comment Management", type: :feature do
 
       click_button "Submit"
 
-      expect(comment.reload.body).to eq "b" * 7
+      expect(comment.reload.body).to_not eq "b" * 7
     end
 
-    # Poprawić bo user może edytować komentarz innego usera
     it "user should not edit other user comment" do
       standard = FactoryGirl.create(:user, :standard)
       post = FactoryGirl.create(:post)
@@ -188,7 +291,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       click_button "Submit"
 
-      expect(comment.reload.body).to eq "b" * 7
+      expect(comment.reload.body).to_not eq "b" * 7
     end
   end
 end
