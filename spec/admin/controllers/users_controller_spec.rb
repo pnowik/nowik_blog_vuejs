@@ -13,7 +13,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe "GET admin/users#show" do
       it "show action should be failure" do
-        user = FactoryGirl.create(:user,:standard)
+        user = FactoryBot.create(:user, :standard)
         get :show, params: {id:user.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -21,7 +21,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     describe "GET admin/users#edit" do
       it "edit action should be failure" do
-        user = FactoryGirl.create(:user,:standard)
+        user = FactoryBot.create(:user, :standard)
         get :edit, params: {id:user.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -30,7 +30,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   context 'User logged in as standard user' do
-    let(:user) {FactoryGirl.create(:user,:standard)}
+    let(:user) {FactoryBot.create(:user, :standard)}
 
     before do
       sign_in user
@@ -60,7 +60,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   context 'User logged in as mod' do
-    let(:user) {FactoryGirl.create(:user,:mod)}
+    let(:user) {FactoryBot.create(:user, :mod)}
 
     before do
       sign_in user
@@ -90,7 +90,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   context 'User logged in as admin' do
-    let(:user) {FactoryGirl.create(:user,:admin)}
+    let(:user) {FactoryBot.create(:user, :admin)}
 
     before do
       sign_in user

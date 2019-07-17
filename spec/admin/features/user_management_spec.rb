@@ -4,8 +4,8 @@ RSpec.describe "Admin User Management", type: :feature do
 
   describe "GET admin/users#edit" do
     it "admin should edit user" do
-      user = FactoryGirl.create(:user, :standard)
-      admin = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :standard)
+      admin = FactoryBot.create(:user, :admin)
       login_as admin
       visit "admin/users/#{user.id}/edit"
 
@@ -19,8 +19,8 @@ RSpec.describe "Admin User Management", type: :feature do
     end
 
     it "mod should edit user" do
-      user = FactoryGirl.create(:user, :standard)
-      mod = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :standard)
+      mod = FactoryBot.create(:user, :mod)
       login_as mod
       visit "admin/users/#{user.id}/edit"
 
@@ -34,8 +34,8 @@ RSpec.describe "Admin User Management", type: :feature do
     end
 
     it "mod should not edit admin" do
-      admin = FactoryGirl.create(:user, :admin)
-      mod = FactoryGirl.create(:user, :mod)
+      admin = FactoryBot.create(:user, :admin)
+      mod = FactoryBot.create(:user, :mod)
       login_as mod
       visit "admin/users/#{admin.id}/edit"
 
@@ -45,7 +45,7 @@ RSpec.describe "Admin User Management", type: :feature do
 
   describe "DELETE admin/users#destroy" do
     it "should delete admin user" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
       visit "/admin/users/"
 
@@ -53,7 +53,7 @@ RSpec.describe "Admin User Management", type: :feature do
     end
 
     it "should delete mod user" do
-      user = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :mod)
       login_as user
       visit "/admin/users/"
 

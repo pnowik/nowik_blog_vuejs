@@ -13,8 +13,8 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#show" do
       it "show action should be failure" do
-        FactoryGirl.create(:user,:standard)
-        post = FactoryGirl.create(:post)
+        FactoryBot.create(:user, :standard)
+        post = FactoryBot.create(:post)
         get :show, params: {id:post.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -29,8 +29,8 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#edit" do
       it "edit action should be failure" do
-        FactoryGirl.create(:user,:standard)
-        post = FactoryGirl.create(:post)
+        FactoryBot.create(:user, :standard)
+        post = FactoryBot.create(:post)
         get :edit, params: {id:post.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -39,7 +39,7 @@ RSpec.describe Admin::PostsController, type: :controller do
   end
 
   context 'User logged in as standard user' do
-    let(:user) {FactoryGirl.create(:user,:standard)}
+    let(:user) {FactoryBot.create(:user, :standard)}
 
     before do
       sign_in user
@@ -54,7 +54,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#show" do
       it "show action should be failure" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :show, params: {id:post.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -69,7 +69,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#edit" do
       it "edit action should be failure" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :edit, params: {id:post.id}
         expect(response).to_not have_http_status(:success)
       end
@@ -78,7 +78,7 @@ RSpec.describe Admin::PostsController, type: :controller do
   end
 
   context 'User logged in as mod' do
-    let(:user) {FactoryGirl.create(:user,:mod)}
+    let(:user) {FactoryBot.create(:user, :mod)}
 
     before do
       sign_in user
@@ -93,7 +93,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#show" do
       it "show action should be success" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :show, params: {id:post.id}
         expect(response).to have_http_status(:success)
       end
@@ -108,7 +108,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#edit" do
       it "edit action should be success" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :edit, params: {id:post.id}
         expect(response).to have_http_status(:success)
       end
@@ -117,7 +117,7 @@ RSpec.describe Admin::PostsController, type: :controller do
   end
 
   context 'User logged in as admin' do
-    let(:user) {FactoryGirl.create(:user,:admin)}
+    let(:user) {FactoryBot.create(:user, :admin)}
 
     before do
       sign_in user
@@ -132,7 +132,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#show" do
       it "show action should be success" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :show, params: {id:post.id}
         expect(response).to have_http_status(:success)
       end
@@ -147,7 +147,7 @@ RSpec.describe Admin::PostsController, type: :controller do
 
     describe "GET admin/posts#edit" do
       it "edit action should be success" do
-        post = FactoryGirl.create(:post)
+        post = FactoryBot.create(:post)
         get :edit, params: {id:post.id}
         expect(response).to have_http_status(:success)
       end

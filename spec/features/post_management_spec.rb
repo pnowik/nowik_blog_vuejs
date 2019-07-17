@@ -4,7 +4,7 @@ RSpec.describe "Post Management", type: :feature do
 
   describe "GET posts#new" do
     it "should create admin new post" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
       visit "posts/new"
 
@@ -16,7 +16,7 @@ RSpec.describe "Post Management", type: :feature do
     end
 
     it "should create mod new post" do
-      user = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :mod)
       login_as user
       visit "posts/new"
 
@@ -30,9 +30,9 @@ RSpec.describe "Post Management", type: :feature do
 
   describe "GET posts#edit" do
     it "should edit admin post" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
-      post = FactoryGirl.create(:post)
+      post = FactoryBot.create(:post)
       visit "posts/#{post.id}/edit"
 
       fill_in "post_title", with: "b" * 7
@@ -47,9 +47,9 @@ RSpec.describe "Post Management", type: :feature do
     end
 
     it "should edit mod post" do
-      user = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :mod)
       login_as user
-      post = FactoryGirl.create(:post)
+      post = FactoryBot.create(:post)
       visit "posts/#{post.id}/edit"
 
       fill_in "post_title", with: "b" * 7
@@ -66,18 +66,18 @@ RSpec.describe "Post Management", type: :feature do
 
   describe "DELETE posts#destroy" do
     it "should delete admin post" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
-      post = FactoryGirl.create(:post)
+      post = FactoryBot.create(:post)
       visit "posts/#{post.id}/edit"
 
       expect { click_link "delete post"}.to change(Post, :count).by(-1)
     end
 
     it "should delete mod post" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
-      post = FactoryGirl.create(:post)
+      post = FactoryBot.create(:post)
       visit "posts/#{post.id}/edit"
 
       expect { click_link "delete post"}.to change(Post, :count).by(-1)

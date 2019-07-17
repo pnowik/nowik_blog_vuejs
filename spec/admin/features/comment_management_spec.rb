@@ -4,11 +4,11 @@ RSpec.describe "Admin Comment Management", type: :feature do
 
   describe "POST admin/comment#create" do
     it "should create new comment" do
-      user = FactoryGirl.create(:user, :admin)
-      post = FactoryGirl.create(:post)
+      user = FactoryBot.create(:user, :admin)
+      post = FactoryBot.create(:post)
       login_as user
       visit "/admin/posts/#{post.id}"
-      page.should have_css('textarea#comment_body')
+      expect(page).to have_css('textarea#comment_body')
 
       fill_in "comment_body", with: "a" * 7
 
@@ -16,20 +16,20 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "should not create new comment" do
-      user = FactoryGirl.create(:user, :admin)
-      post = FactoryGirl.create(:post)
+      FactoryBot.create(:user, :admin)
+      post = FactoryBot.create(:post)
       visit "admin/posts/#{post.id}"
 
-      page.should_not have_css('textarea#comment_body')
+      expect(page).to_not have_css('textarea#comment_body')
     end
   end
 
   describe "GET admin/comments#edit" do
     it "should edit admin comments" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
 
       visit edit_admin_post_comment_path(post.id, comment.id)
       fill_in "comment_body", with: "admin"
@@ -38,10 +38,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "admin should edit mod comment" do
-      mod = FactoryGirl.create(:user, :mod)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :admin)
+      FactoryBot.create(:user, :mod)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :admin)
       login_as user
       visit edit_admin_post_comment_path(post.id, comment.id)
 
@@ -53,10 +53,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "admin should publish and unpublish user comment" do
-      standard = FactoryGirl.create(:user, :standard)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :admin)
+      FactoryBot.create(:user, :standard)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :admin)
       login_as user
       visit "admin/posts/#{post.id}"
 
@@ -70,10 +70,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "should edit mod comment" do
-      user = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :mod)
       login_as user
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
       visit edit_admin_post_comment_path(post.id, comment.id)
 
       fill_in "comment_body", with: "b" * 7
@@ -84,10 +84,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "mod should edit admin comment" do
-      admin = FactoryGirl.create(:user, :admin)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :mod)
+      FactoryBot.create(:user, :admin)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :mod)
       login_as user
       visit edit_admin_post_comment_path(post.id, comment.id)
 
@@ -99,10 +99,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "mod should edit user comment" do
-      standard = FactoryGirl.create(:user, :standard)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :mod)
+      FactoryBot.create(:user, :standard)
+      post = FactoryBot.create(:post)
+      comment = FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :mod)
       login_as user
       visit edit_admin_post_comment_path(post.id, comment.id)
 
@@ -116,10 +116,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
 
   describe "DELETE admin/comments#destroy" do
     it "should delete admin comments" do
-      user = FactoryGirl.create(:user, :admin)
+      user = FactoryBot.create(:user, :admin)
       login_as user
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
 
       visit admin_post_comments_path(post.id)
 
@@ -127,10 +127,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "admin should delete mod comments" do
-      mod = FactoryGirl.create(:user, :mod)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :admin)
+      FactoryBot.create(:user, :mod)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :admin)
       login_as user
 
       visit admin_post_comments_path(post.id)
@@ -139,10 +139,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "admin should delete user comments" do
-      standard = FactoryGirl.create(:user, :standard)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :admin)
+      FactoryBot.create(:user, :standard)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :admin)
       login_as user
 
       visit admin_post_comments_path(post.id)
@@ -151,10 +151,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "should delete mod comments" do
-      user = FactoryGirl.create(:user, :mod)
+      user = FactoryBot.create(:user, :mod)
       login_as user
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
 
       visit admin_post_comments_path(post.id)
 
@@ -162,10 +162,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "mod should delete admin comments" do
-      admin = FactoryGirl.create(:user, :admin)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :mod)
+      FactoryBot.create(:user, :admin)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :mod)
       login_as user
 
       visit admin_post_comments_path(post.id)
@@ -174,10 +174,10 @@ RSpec.describe "Admin Comment Management", type: :feature do
     end
 
     it "mod should delete user comments" do
-      standard = FactoryGirl.create(:user, :standard)
-      post = FactoryGirl.create(:post)
-      comment = FactoryGirl.create(:comment)
-      user = FactoryGirl.create(:user, :mod)
+      FactoryBot.create(:user, :standard)
+      post = FactoryBot.create(:post)
+      FactoryBot.create(:comment)
+      user = FactoryBot.create(:user, :mod)
       login_as user
 
       visit admin_post_comments_path(post.id)

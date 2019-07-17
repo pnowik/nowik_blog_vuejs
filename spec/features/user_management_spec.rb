@@ -19,7 +19,7 @@ RSpec.describe "User Management", type: :feature do
 
   describe "GET devise/registration#edit" do
     it "should edit user" do
-      user = FactoryGirl.create(:user, :standard)
+      user = FactoryBot.create(:user, :standard)
       login_as user
       visit "my/users/edit"
 
@@ -34,7 +34,7 @@ RSpec.describe "User Management", type: :feature do
     end
 
     it "should not edit user" do
-      user = FactoryGirl.create(:user, :standard)
+      user = FactoryBot.create(:user, :standard)
       login_as user
       visit "my/users/edit"
 

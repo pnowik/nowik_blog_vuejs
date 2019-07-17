@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe 'layouts/_menu', type: :view do
 
   context 'admin logged in' do
-    let(:user) {FactoryGirl.create(:user,:admin)}
+    let(:user) {FactoryBot.create(:user,:admin)}
 
     before do
       allow(view).to receive(:current_user).and_return(user)
@@ -23,7 +23,7 @@ RSpec.describe 'layouts/_menu', type: :view do
   end
 
   context 'mod logged in' do
-    let(:user) {FactoryGirl.create(:user,:mod)}
+    let(:user) {FactoryBot.create(:user,:mod)}
 
     before do
       allow(view).to receive(:current_user).and_return(user)
@@ -43,7 +43,7 @@ RSpec.describe 'layouts/_menu', type: :view do
   end
 
   context 'user logged in' do
-    let(:user) {FactoryGirl.create(:user,:standard)}
+    let(:user) {FactoryBot.create(:user,:standard)}
 
     before do
       allow(view).to receive(:current_user).and_return(user)
