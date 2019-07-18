@@ -4,8 +4,8 @@ User.create!(name:  "nowik",
              password_confirmation: "qwerty",
              role: "admin")
 
-User.create!(name:  "łukasz",
-             email: "łukasz@gmail.com",
+User.create!(name:  "krzysiek",
+             email: "krzysiek@gmail.com",
              password:              "qwerty",
              password_confirmation: "qwerty",
              role: "mod")
