@@ -60,11 +60,11 @@ RSpec.describe "Admin Comment Management", type: :feature do
       login_as user
       visit "admin/posts/#{post.id}"
 
-      click_button "Publish"
+      click_link "Publish"
 
       expect(comment.reload.published).to eq true
 
-      click_button "Unpublish"
+      click_link "Unpublish"
 
       expect(comment.reload.published).to eq false
     end

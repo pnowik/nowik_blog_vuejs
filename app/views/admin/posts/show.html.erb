@@ -1,9 +1,17 @@
-<h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_admin_post_path(@post))) %></h1>
-<p><small><strong>Added by: </strong><%= @post.user.name %><strong>  at: </strong><%= @post.created_at %></small></p>
-<h4><strong><%= @post.subtitle %></strong></h4>
-<p><%= @post.body %></p>
-<h3>Comments (<%= @post.comments.size %>)</h3>
-<% if current_user %>
-  <%= render partial: '/admin/comments/form' %>
-<% end %>
+<div class="post-show">
+  <div class="post-title">
+    <h1><%= @post.title %> <%= content_tag(:small, link_to('edit', edit_admin_post_path(@post))) %></h1>
+  </div>
+  <p><small><strong>Added by: </strong><%= @post.user.name %><strong>  at: </strong><%= @post.created_at %></small></p>
+  <div class="post-subtitle">
+    <h4><strong><%= @post.subtitle %></strong></h4>
+  </div>
+  <p><%= @post.body %></p>
+  <div class="comment-post">
+    <h3>Comments (<%= @post.comments.size %>)</h3>
+    <% if current_user %>
+    <%= render partial: '/admin/comments/form' %>
+    <% end %>
+  </div>
 <%= render partial: '/admin/posts/comment', collection: @post.comments.reverse %>
+</div>

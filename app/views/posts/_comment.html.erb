@@ -1,66 +1,51 @@
-<div>
+<div class="comment">
   <% if current_user.try(:admin?) || current_user.try(:mod?) %>
-    <p><small><strong> <%= comment.user.name %> </strong>
-      <% if comment.user.try(:admin?) %>
-        <span style="color: darkred;">(admin)</span>
-      <% elsif comment.user.try(:mod?) %>
-        <span style="color: darkblue;">(mod)</span>
-      <% end %>
-      <%= comment.created_at %> </small>
-    </p>
-    <p class="comment"><%= comment.body %></p>
-    <% if((current_user.try(:admin?) || current_user.try(:mod?)) && !comment.published && comment.user.try(:standard?)) %>
-      <div class="form-group2">
-      <%= form_tag publish_post_comment_path(@post, comment), method: :put do -%>
-        <%= submit_tag 'Publish' -%>
-      <%- end -%>
-      </div>
-    <% elsif((current_user.try(:admin?) || current_user.try(:mod?)) && comment.published && comment.user.try(:standard?)) %>
-      <div class="form-group2">
-      <%= form_tag unpublish_post_comment_path(@post, comment), method: :put do -%>
-        <%= submit_tag 'Unpublish' -%>
-      <%- end -%>
-      </div>
-    <% end %>
-    <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
-      <div class="form-group2">
-        <%= form_tag edit_post_comment_path(@post, comment), method: :get do -%>
-          <%= submit_tag 'Edit' -%>
-        <%- end -%>
-      </div>
-    <% end %>
-    <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
-      <div class="form-group2">
-        <%= form_tag post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
-          <%= submit_tag 'Delete' -%>
-        <%- end -%>
-      </div>
-    <% end %>
-  <% elsif current_user %>
-    <% if comment.published || comment.user_id.to_s == current_user.id.to_s %>
-      <p><small><strong> <%= comment.user.name %> </strong>
+    <p>
+      <small><strong> <%= comment.user.name %> </strong>
         <% if comment.user.try(:admin?) %>
           <span style="color: darkred;">(admin)</span>
         <% elsif comment.user.try(:mod?) %>
           <span style="color: darkblue;">(mod)</span>
         <% end %>
-        <%= comment.created_at %> </small>
+        <%= comment.created_at %>
+        <strong>
+          <% if((current_user.try(:admin?) || current_user.try(:mod?)) && !comment.published && comment.user.try(:standard?)) %>
+            <%= content_tag(:small, link_to("Publish", publish_post_comment_path(@post, comment), method: :put)) %>
+          <% elsif((current_user.try(:admin?) || current_user.try(:mod?)) && comment.published && comment.user.try(:standard?)) %>
+            <%= content_tag(:small, link_to("Unpublish", unpublish_post_comment_path(@post, comment), method: :put)) %>
+          <% end %>
+          <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
+            <%= content_tag(:small, link_to("Edit", edit_post_comment_path(@post, comment), method: :get)) %>
+          <% end %>
+          <% if current_user.try(:admin?) || current_user.try(:mod?) || comment.user_id.to_s == current_user.id.to_s %>
+            <%= content_tag(:small, link_to("Delete", post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"})) %>
+          <% end %>
+        </strong>
+      </small>
+    </p>
+    <p><%= comment.body %></p>
+  <% elsif current_user %>
+    <% if comment.published || comment.user_id.to_s == current_user.id.to_s %>
+      <p>
+        <small>
+          <strong> <%= comment.user.name %> </strong>
+          <% if comment.user.try(:admin?) %>
+            <span style="color: darkred;">(admin)</span>
+          <% elsif comment.user.try(:mod?) %>
+            <span style="color: darkblue;">(mod)</span>
+          <% end %>
+          <%= comment.created_at %>
+          <strong>
+            <% if comment.user_id.to_s == current_user.id.to_s %>
+              <%= content_tag(:small, link_to("Edit", edit_post_comment_path(@post, comment), method: :get)) %>
+            <% end %>
+            <% if comment.user_id.to_s == current_user.id.to_s %>
+              <%= content_tag(:small, link_to("Delete", post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"})) %>
+            <% end %>
+          </strong>
+        </small>
       </p>
-      <p class="comment"><%= comment.body %></p>
-      <% if comment.user_id.to_s == current_user.id.to_s %>
-        <div class="form-group2">
-          <%= form_tag edit_post_comment_path(@post, comment), method: :get do -%>
-            <%= submit_tag 'Edit' -%>
-          <%- end -%>
-        </div>
-      <% end %>
-      <% if comment.user_id.to_s == current_user.id.to_s %>
-        <div class="form-group2">
-          <%= form_tag post_comment_path(@post, comment), method: :delete, data: {confirm: "Are you sure you want to delete this permanently?"} do -%>
-            <%= submit_tag 'Delete' -%>
-          <%- end -%>
-        </div>
-      <% end %>
+      <p><%= comment.body %></p>
     <% end %>
   <% else %>
     <p><small><strong> <%= comment.user.name %> </strong>
@@ -71,6 +56,6 @@
       <% end %>
       <%= comment.created_at %> </small>
     </p>
-    <p class="comment"><%= comment.body %></p>
+    <p><%= comment.body %></p>
   <% end %>
 </div>

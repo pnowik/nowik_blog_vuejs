@@ -24,11 +24,16 @@
     </div>
   </div>
 
+  <% if @user.role != "admin" %>
   <div class="form-group">
+    <%= f.label :role, class: 'col-sm-2 control-label'  %>
+    <div class="col-sm-6">
     <%= f.select :role, [['standard', 'standard'], ['mod', 'mod']], class: 'form-control' %>
+    </div>
   </div>
+  <% end %>
 
-  <div class="form-group">
+  <div class="form-group" style="margin-top: 60px !important;">
     <div class="col-sm-offset-2 col-sm-6">
       <%= f.submit "Update", url: edit_admin_user_path(@user.id), class: "btn btn-primary" %>
     </div>

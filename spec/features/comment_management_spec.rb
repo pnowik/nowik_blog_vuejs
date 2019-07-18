@@ -33,7 +33,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "admin should delete mod comments" do
@@ -45,7 +45,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "admin should delete user comments" do
@@ -57,7 +57,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "should delete mod comments" do
@@ -68,7 +68,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "mod should delete admin comments" do
@@ -80,7 +80,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "mod should delete user comments" do
@@ -92,7 +92,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "should delete user comments" do
@@ -103,7 +103,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect { click_button "Delete"}.to change(Comment, :count).by(-1)
+      expect { click_link "Delete"}.to change(Comment, :count).by(-1)
     end
 
     it "user should not delete admin comments" do
@@ -115,7 +115,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect(page).to_not have_selector(:button, "Delete")
+      expect(page).to_not have_selector(:link, "Delete")
     end
 
     it "user should not delete mod comments" do
@@ -127,7 +127,7 @@ RSpec.describe "Comment Management", type: :feature do
 
       visit post_path(post.id)
 
-      expect(page).to_not have_selector(:button, "Delete")
+      expect(page).to_not have_selector(:link, "Delete")
     end
   end
 
@@ -182,11 +182,11 @@ RSpec.describe "Comment Management", type: :feature do
       login_as user
       visit "/posts/#{post.id}"
 
-      click_button "Publish"
+      click_link "Publish"
 
       expect(comment.reload.published).to eq true
 
-      click_button "Unpublish"
+      click_link "Unpublish"
 
       expect(comment.reload.published).to eq false
     end

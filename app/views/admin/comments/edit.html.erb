@@ -1,11 +1,22 @@
-<h3>Edit comment</h3>
+<div class="manage-header">
+  <h3>
+    Edit comment
+    <small>
+      <% if @comment.published %>
+        <%= link_to 'unpublish', unpublish_admin_post_comment_path(params[:post_id], @comment.id), method: :put, data: {confirm: "Are you sure you want to unpublish this?"} %>
+      <% else %>
+        <%= link_to 'publish', publish_admin_post_comment_path(params[:post_id], @comment.id), method: :put, data: {confirm: "Are you sure you want to publish this?"} %>
+      <% end %>
+    </small>
+  </h3>
+</div>
 
 <%= form_for(@comment, url: admin_post_comment_path(params[:post_id])) do |f| %>
   <p>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, class: 'form-control', rows: 2  %>
   </p>
   <p>
-    <%= f.submit 'Submit' %>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
   </p>
   <br>
 <% end %>
