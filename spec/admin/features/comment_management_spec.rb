@@ -62,11 +62,11 @@ RSpec.describe "Admin Comment Management", type: :feature do
 
       click_link "Publish"
 
-      expect(comment.reload.published).to eq true
+      expect(comment.reload.publish?).to eq true
 
       click_link "Unpublish"
 
-      expect(comment.reload.published).to eq false
+      expect(comment.reload.publish?).to eq false
     end
 
     it "should edit mod comment" do

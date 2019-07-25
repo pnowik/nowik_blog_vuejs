@@ -16,18 +16,4 @@ FactoryBot.define do
     end
   end
 
-  factory :post do
-    id { 1 }
-    title { 'a' * 7 }
-    subtitle { 'a' * 50 }
-    body { 'a' * 300 }
-    user_id { 1 }
-  end
-
-  factory :comment do
-    body { 'a' * 30 }
-    post_id { 1 }
-    user_id { 1 }
-  end
-
 end

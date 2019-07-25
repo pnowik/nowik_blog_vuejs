@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :find_comment, only: [:show, :edit, :update, :destroy]
+  before_action :find_comment, only: [:show, :edit, :update, :destroy, :publish, :unpublish]
+  before_action :fin_post
   before_action :authenticate_user!
 
   def create
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
     @comment.user_id = current_user.id
     if current_user.try(:admin?) || current_user.try(:mod?)
@@ -17,31 +17,24 @@ class CommentsController < ApplicationController
   end
 
   def publish
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
     @comment.published = true
     @comment.save
     redirect_to @post
   end
 
   def unpublish
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
     @comment.published = false
     @comment.save
     redirect_back(fallback_location: root_path)
   end
 
   def edit
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
     if @comment.user_id != current_user.id && current_user.try(:standard?)
       redirect_to post_path(@post.id)
     end
   end
 
   def update
-    @post = Post.find(params[:post_id])
     if @comment.update_attributes(comment_params)
       redirect_to @post
       flash[:success] = "Updated comment"
@@ -51,8 +44,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_back(fallback_location: root_path)
     flash[:success] = "deleted comment"
@@ -66,5 +57,9 @@ class CommentsController < ApplicationController
 
   def find_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def fin_post
+    @post = Post.find(params[:post_id])
   end
 end
