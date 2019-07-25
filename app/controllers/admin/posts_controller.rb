@@ -14,7 +14,7 @@ class Admin::PostsController < Admin::BaseController
 
   def new
     @post = Post.new
-    authorize @post
+    authorize [:admin, @post]
   end
 
   def create
@@ -30,11 +30,11 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def edit
-    authorize @post
+    authorize [:admin, @post]
   end
 
   def update
-    authorize @post
+    authorize [:admin, @post]
     if @post.update_attributes(allowed_params)
       flash[:success] = "Updated post"
       redirect_to admin_post_path(@post.id)
@@ -44,7 +44,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def destroy
-    authorize @post
+    authorize [:admin, @post]
     @post.destroy
     redirect_to admin_posts_path
     flash[:success] = "deleted post"

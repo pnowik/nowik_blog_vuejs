@@ -1,18 +1,13 @@
 class Admin::UserPolicy < ApplicationPolicy
-  attr_reader :user, :post, :comment
+  attr_reader :user, :other_user
 
-  def initialize(user, post, comment)
+  def initialize(user, other_user)
     @user = user
-    @post = post
-    @comment = comment
-  end
-
-  def new?
-    user.role == 'admin' || user.role == 'mod'
+    @other_user = other_user
   end
 
   def edit?
-    user.role == 'admin' || user.role == 'mod'
+    user.role == 'admin' || (user.role == 'mod' && other_user.role != 'admin')
   end
 
   def update?

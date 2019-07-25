@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :find_comment, only: [:show, :edit, :update, :destroy, :publish, :unpublish]
-  before_action :fin_post
+  before_action :find_post
   before_action :authenticate_user!
 
   def create
@@ -17,21 +17,21 @@ class CommentsController < ApplicationController
   end
 
   def publish
+    authorize @comment
     @comment.published = true
     @comment.save
     redirect_to @post
   end
 
   def unpublish
+    authorize @comment
     @comment.published = false
     @comment.save
     redirect_back(fallback_location: root_path)
   end
 
   def edit
-    if @comment.user_id != current_user.id && current_user.try(:standard?)
-      redirect_to post_path(@post.id)
-    end
+    authorize @comment
   end
 
   def update
@@ -59,7 +59,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
-  def fin_post
+  def find_post
     @post = Post.find(params[:post_id])
   end
 end

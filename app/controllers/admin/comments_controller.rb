@@ -27,18 +27,22 @@ class Admin::CommentsController < Admin::BaseController
 
   def new
     @comment = Comment.new
+    authorize [:admin, @comment]
   end
 
   def destroy
+    authorize [:admin, @comment]
     @comment.destroy
     redirect_back(fallback_location: root_path)
     flash[:success] = "deleted comment"
   end
 
   def edit
+    authorize [:admin, @comment]
   end
 
   def update
+    authorize [:admin, @comment]
     if @comment.update_attributes(comment_params)
       redirect_to @post
       flash[:success] = "Updated comment"
@@ -48,12 +52,14 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def publish
+    authorize [:admin, @comment]
     @comment.published = true
     @comment.save
     redirect_back(fallback_location: root_path)
   end
 
   def unpublish
+    authorize [:admin, @comment]
     @comment.published = false
     @comment.save
     redirect_back(fallback_location: root_path)

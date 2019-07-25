@@ -1,9 +1,8 @@
 class Admin::CommentPolicy < ApplicationPolicy
-  attr_reader :user, :post, :comment
+  attr_reader :user, :comment
 
-  def initialize(user, post, comment)
+  def initialize(user, comment)
     @user = user
-    @post = post
     @comment = comment
   end
 

@@ -14,12 +14,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
-    if @user.role == 'admin' && current_user.try(:mod?)
-      redirect_to admin_users_path
-    end
+    authorize [:admin, @user]
   end
 
   def update
+    authorize [:admin, @user]
     if @user.update(allowed_params)
       redirect_to admin_users_path
     else
@@ -28,6 +27,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
+    authorize [:admin, @user]
     @user.destroy
     redirect_to admin_users_path
     flash[:success] = "deleted user"

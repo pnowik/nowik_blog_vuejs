@@ -257,11 +257,7 @@ RSpec.describe "Comment Management", type: :feature do
       login_as user
       visit edit_post_comment_path(post.id, comment.id)
 
-      fill_in "comment_body", with: "b" * 7
-
-      click_button "Submit"
-
-      expect(comment.reload.body).to_not eq "b" * 7
+      expect(page).to_not have_selector("comment_body")
     end
 
     it "user should not edit mod comment" do
@@ -272,11 +268,7 @@ RSpec.describe "Comment Management", type: :feature do
       login_as user
       visit edit_post_comment_path(post.id, comment.id)
 
-      fill_in "comment_body", with: "b" * 7
-
-      click_button "Submit"
-
-      expect(comment.reload.body).to_not eq "b" * 7
+      expect(page).to_not have_selector("comment_body")
     end
 
     it "user should not edit other user comment" do
@@ -287,11 +279,7 @@ RSpec.describe "Comment Management", type: :feature do
       login_as user
       visit edit_post_comment_path(post.id, comment.id)
 
-      fill_in "comment_body", with: "b" * 7
-
-      click_button "Submit"
-
-      expect(comment.reload.body).to_not eq "b" * 7
+      expect(page).to_not have_selector("comment_body")
     end
   end
 end
