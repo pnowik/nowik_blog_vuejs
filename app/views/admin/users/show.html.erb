@@ -1,8 +1,7 @@
-<div class="user-show">
-  <p>User_id: <%= @user.id %></p>
-  <p>Name: <%= @user.name %></p>
-  <p>Email: <%= @user.email %></p>
-  <p>Role: <%= @user.role %></p>
-  <p>Created_at: <%= @user.created_at %></p>
-  <p>Updated_at: <%= @user.updated_at %></p>
-</div>
+<%= javascript_pack_tag 'admin/users/show'%>
+
+<% props = {
+    user: @user
+}.to_json
+%>
+<div id="users-show-view" data="<%= props %>"></div>
