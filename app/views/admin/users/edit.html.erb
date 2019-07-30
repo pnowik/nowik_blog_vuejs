@@ -25,12 +25,12 @@
   </div>
 
   <% if @user.role != "admin" %>
-  <div class="form-group">
-    <%= f.label :role, class: 'col-sm-2 control-label'  %>
-    <div class="col-sm-6">
-    <%= f.select :role, [['standard', 'standard'], ['mod', 'mod']], class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :role, class: 'col-sm-2 control-label'  %>
+      <div class="col-sm-6">
+        <%= f.select :role, [['standard', 'standard'], ['mod', 'mod']], class: 'form-control' %>
+      </div>
     </div>
-  </div>
   <% end %>
 
   <div class="form-group" style="margin-top: 60px !important;">
