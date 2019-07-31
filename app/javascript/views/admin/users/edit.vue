@@ -1,7 +1,7 @@
 <template>
     <div id="users-edit-view">
     <h1>Edit user</h1>
-    <form method="get" action="/admin/users/:3/edit" class="form-horizontal">
+    <form method="get" action="/admin/users/3/edit" class="form-horizontal">
         <input type="hidden" name="authenticity_token" :value="csrf">
         <div class="form-group">
             <label class="col-sm-2 control-label">Name</label>
@@ -13,8 +13,10 @@
             <input type="email" class="input" name="email">
         </div>
 
-        <div class="field">
-            <button type="submit">Submit</button>
+        <div class="form-group" style="margin-top: 60px !important;">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit">Update</button>
+            </div>
         </div>
     </form>
     </div>

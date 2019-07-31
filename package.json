@@ -8,6 +8,7 @@
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.7",
     "vue-template-compiler": "^2.6.10",
     "vue-turbolinks": "^2.0.4"

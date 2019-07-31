@@ -1,5 +1,6 @@
 <% props = {
-    users: @users
+    users: @users,
+    current_user: current_user
 }.to_json
 %>
 <div id="users-index-view" data="<%= props %>"></div>

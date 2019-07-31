@@ -10,14 +10,18 @@
                 <th class="my-th">name</th>
                 <th class="my-th">email</th>
                 <th class="my-th">role</th>
-                <th class="my-th">show_user</th>
+                <th class="my-th">show user</th>
+                <th class="my-th">edit user</th>
             </tr>
             <tr v-for="user in users">
                 <td class="my-td">{{user.id}}</td>
                 <td class="my-td">{{user.name}}</td>
                 <td class="my-td">{{user.email}}</td>
                 <td class="my-td">{{user.role}}</td>
-                <td class="my-td"> <b-link href="/admin/users">show</b-link></td>
+                <td class="my-td"> <a v-bind:href="'/admin/users/' + user.id">show</a></td>
+                <td class="my-td" v-if="user.role !== 'admin'"><a v-bind:href="'/admin/users/' + user.id + '/edit'">edit</a></td>
+                <td class="my-td" v-else-if="current_user.role === 'admin'"><a v-bind:href="'/admin/users/' + user.id + '/edit'">edit</a></td>
+                <td class="my-td" v-else>you can't do this</td>
             </tr>
         </table>
 
@@ -30,7 +34,7 @@
 
 <script>
     export default {
-        props: ['users'],
+        props: ['users', 'current_user'],
         data() {
             return {
             }
